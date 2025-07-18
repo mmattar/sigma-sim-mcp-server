@@ -1,0 +1,35 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "sigma-sim-mcp-server",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-03-10",
+	"compatibility_flags": ["nodejs_compat"],
+	"migrations": [
+		{
+			"new_sqlite_classes": ["MyMCP"],
+			"tag": "v1"
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"class_name": "MyMCP",
+				"name": "MCP_OBJECT"
+			}
+		]
+	},
+	"kv_namespaces": [
+		{
+			"binding": "OAUTH_KV",
+			"id": "db2b0e4fb74d4768a0b78a6e45ea61aa"
+		}
+	],
+	"observability": {
+		"enabled": true
+	},
+	"assets": { "directory": "./static/", "binding": "ASSETS" }
+}
